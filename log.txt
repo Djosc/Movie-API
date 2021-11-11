@@ -1,0 +1,15 @@
+URL: /
+Timestamp: Thu Nov 11 2021 12:56:38 GMT-0500 (Eastern Standard Time)
+
+URL: /image/bubble_point_yellow.png
+Timestamp: Thu Nov 11 2021 12:56:38 GMT-0500 (Eastern Standard Time)
+
+URL: /favicon.ico
+Timestamp: Thu Nov 11 2021 12:56:38 GMT-0500 (Eastern Standard Time)
+
+URL: /
+Timestamp: Thu Nov 11 2021 13:01:45 GMT-0500 (Eastern Standard Time)
+
+URL: /favicon.ico
+Timestamp: Thu Nov 11 2021 13:01:46 GMT-0500 (Eastern Standard Time)
+
