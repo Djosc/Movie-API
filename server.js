@@ -14,7 +14,7 @@ http.createServer((req, resp) => {
     });
 
     if (q.pathname.includes('documentation')) {
-        filePath = (__dirname + './documentation.html');
+        filePath = __dirname + '/documentation.html';
     }
     else filePath = 'index.html';
 
@@ -25,7 +25,6 @@ http.createServer((req, resp) => {
         resp.write(data);
         resp.end();
     });
-
 }).listen(8080);
 
 console.log('My fist Node test server is running on port 8080.');

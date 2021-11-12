@@ -13,3 +13,33 @@ Timestamp: Thu Nov 11 2021 13:01:45 GMT-0500 (Eastern Standard Time)
 URL: /favicon.ico
 Timestamp: Thu Nov 11 2021 13:01:46 GMT-0500 (Eastern Standard Time)
 
+URL: /
+Timestamp: Fri Nov 12 2021 11:43:41 GMT-0500 (Eastern Standard Time)
+
+URL: /image/bubble_point_yellow.png
+Timestamp: Fri Nov 12 2021 11:43:41 GMT-0500 (Eastern Standard Time)
+
+URL: /favicon.ico
+Timestamp: Fri Nov 12 2021 11:43:41 GMT-0500 (Eastern Standard Time)
+
+URL: /
+Timestamp: Fri Nov 12 2021 11:49:23 GMT-0500 (Eastern Standard Time)
+
+URL: /favicon.ico
+Timestamp: Fri Nov 12 2021 11:49:23 GMT-0500 (Eastern Standard Time)
+
+URL: /documentation
+Timestamp: Fri Nov 12 2021 11:49:33 GMT-0500 (Eastern Standard Time)
+
+URL: /favicon.ico
+Timestamp: Fri Nov 12 2021 11:49:33 GMT-0500 (Eastern Standard Time)
+
+URL: /documentation
+Timestamp: Fri Nov 12 2021 11:49:51 GMT-0500 (Eastern Standard Time)
+
+URL: /documentation
+Timestamp: Fri Nov 12 2021 11:50:08 GMT-0500 (Eastern Standard Time)
+
+URL: /favicon.ico
+Timestamp: Fri Nov 12 2021 11:50:08 GMT-0500 (Eastern Standard Time)
+
