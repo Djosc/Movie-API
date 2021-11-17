@@ -6,13 +6,94 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MyFlix</title>
+    <style>
+        td,
+        th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
 </head>
 
 <body>
-    <h1>My Flix</h1>
-    <p>The web application will provide users with access to information about different
-        movies, directors, and genres. Users will be able to sign up, update their
-        personal information, and create a list of their favorite movies.</p>
+    <h1>My Flix Documentation</h1>
+
+    <table>
+        <thead>
+            <th>Action</th>
+            <th>Request</th>
+            <th>URL</th>
+            <th>Response</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Return all movies</td>
+                <td>GET</td>
+                <td>/movies</td>
+                <td>Returns JSON data about all movie objects</td>
+            </tr>
+            <tr>
+                <td>Returns data about a single movie</td>
+                <td>GET</td>
+                <td>/movies/:title</td>
+                <td>Return JSON data about a single movie based on the title passed in the URL</td>
+            </tr>
+            <tr>
+                <td>Return a genre description</td>
+                <td>GET</td>
+                <td>/genres/:genre</td>
+                <td>Returns a description about a genre based on the genre passed in the URL</td>
+            </tr>
+            <tr>
+                <td>Returns data about a director</td>
+                <td>GET</td>
+                <td>/directors/:director</td>
+                <td>Return JSON data about a director based on the director passed in the URL</td>
+            </tr>
+            <tr>
+                <td>Registers a new user</td>
+                <td>POST</td>
+                <td>/users</td>
+                <td>Returns a success (201) or failed (400) status code for the POST request</td>
+            </tr>
+            <tr>
+                <td>Updates a user's username</td>
+                <td>PUT</td>
+                <td>/users/:userName</td>
+                <td>Returns a success (201) or failed (400) status code for the PUT request</td>
+            </tr>
+            <tr>
+                <td>Adds a movie to a list of favorites</td>
+                <td>POST eg.
+                    {
+                    title: 'The Shawshank Redemption',
+                    director: 'Frank Darabont',
+                    genre: ['Drama'],
+                    releaseYear: '1994'
+                    }
+                </td>
+                <td>/users/add/:movie</td>
+                <td>Returns a text response confirming the movie was added successfully</td>
+            </tr>
+            <tr>
+                <td>Removes a movie from a list of favorites</td>
+                <td>DELETE</td>
+                <td>/users/remove/:movie</td>
+                <td>Returns a text response confirming the movie was removed successfully</td>
+            </tr>
+            <tr>
+                <td>Deletes the user's account</td>
+                <td>DELETE</td>
+                <td>/users/deleteAccount</td>
+                <td>Returns a text response confirming the user account was successfully deleted</td>
+            </tr>
+        </tbody>
+    </table>
 </body>
 
 </html>
