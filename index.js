@@ -80,7 +80,6 @@ app.get('/directors/:Director', (req, res) => {
 });
 
 // Get all users 
-// ! add to documentation
 app.get('/users', (req, res) => {
     Users.find()
         .then((users) => {
@@ -93,7 +92,6 @@ app.get('/users', (req, res) => {
 });
 
 // Get user by Username 
-// ! add to documentation
 app.get('/users/:Username', (req, res) => {
     Users.findOne({ Username: req.params.Username })
         .then((user) => {
@@ -158,7 +156,6 @@ app.put('/users/:Username', (req, res) => {
 });
 
 // Add movie to the user's favorite list
-// ! update documentation
 app.post('/users/:Username/movies/:MovieID', (req, res) => {
     Users.findOneAndUpdate({ Username: req.params.Username },
         {
@@ -196,7 +193,6 @@ app.delete('/users/:Username/movies/:MovieID', (req, res) => {
 
 // Delete user's account by Username
 app.delete('/users/:Username', (req, res) => {
-    // res.status(200).send('Successfull DELETE request deleting user\'s account');
     Users.findOneAndUpdate({ Username: req.params.Username })
         .then((user) => {
             if (!user) {

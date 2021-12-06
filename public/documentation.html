@@ -17,6 +17,15 @@
         tr:nth-child(even) {
             background-color: #dddddd;
         }
+
+        p {
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
+        span {
+            text-align: left;
+        }
     </style>
 </head>
 
@@ -35,62 +44,122 @@
                 <td>Return all movies</td>
                 <td>GET</td>
                 <td>/movies</td>
-                <td>Returns JSON data about all movie objects</td>
+                <td>Returns JSON data about all movie objects.</td>
             </tr>
             <tr>
-                <td>Returns data about a single movie</td>
+                <td>Returns data about a single movie by Title</td>
                 <td>GET</td>
-                <td>/movies/:title</td>
-                <td>Return JSON data about a single movie based on the title passed in the URL</td>
+                <td>/movies/:Title</td>
+                <td>Return JSON data about a single movie based on the title passed in the URL. eg:
+                    <p>{</p>
+                    <p>Title: String,</p>
+                    <p>Description: String,</p>
+                    <p>Genre: { Name: String, Description: String },</p>
+                    <p>Director: { Name: String, Bio: String, Birth: Date, Death: Date },</p>
+                    <p>Actors: [String],</p>
+                    <p>ImagePath: String,</p>
+                    <p>Featured: Boolean</p>
+                    <p>}</p>
+                </td>
             </tr>
             <tr>
                 <td>Return a genre description</td>
                 <td>GET</td>
-                <td>/genres/:genre</td>
-                <td>Returns a description about a genre based on the genre passed in the URL</td>
+                <td>/genres/:Genre</td>
+                <td>Returns a description about a genre based on the genre name passed in the URL</td>
             </tr>
             <tr>
-                <td>Returns data about a director</td>
+                <td>Returns data about a director by Name</td>
                 <td>GET</td>
-                <td>/directors/:director</td>
-                <td>Return JSON data about a director based on the director passed in the URL</td>
+                <td>/directors/:Director</td>
+                <td>Return JSON data about a director based on the director passed in the URL. eg:
+                    <p>{</p>
+                    <p>Name: String,</p>
+                    <p>Bio: String,</p>
+                    <p>Birth: Date,</p>
+                    <p>Death: Date</p>
+                    <p>}</p>
+                </td>
+            </tr>
+            <tr>
+                <td>Returns data all users</td>
+                <td>GET</td>
+                <td>/users</td>
+                <td>Returns JSON data about all users.</td>
+            </tr>
+            <tr>
+                <td>Returns information about a user by Username</td>
+                <td>GET</td>
+                <td>/users/:Username</td>
+                <td>Returns JSON data about a user. eg:
+                    <p>{</p>
+                    <p>Username: String,</p>
+                    <p>Password: String,</p>
+                    <p>Email: String,</p>
+                    <p>Birthday: Date,</p>
+                    <p>FavoriteMovies: [String]</p>
+                    <p>}</p>
+                </td>
             </tr>
             <tr>
                 <td>Registers a new user</td>
-                <td>POST</td>
-                <td>/users</td>
-                <td>Returns a success (201) or failed (400) status code for the POST request</td>
-            </tr>
-            <tr>
-                <td>Updates a user's username</td>
-                <td>PUT</td>
-                <td>/users/:userName</td>
-                <td>Returns a success (201) or failed (400) status code for the PUT request</td>
-            </tr>
-            <tr>
-                <td>Adds a movie to a list of favorites</td>
-                <td>POST eg.
-                    {
-                    title: 'The Shawshank Redemption',
-                    director: 'Frank Darabont',
-                    genre: ['Drama'],
-                    releaseYear: '1994'
-                    }
+                <td>POST eg. JSON body:
+                    <p>{</p>
+                    <p>Username: String,</p>
+                    <p>Password: String,</p>
+                    <p>Email: String,</p>
+                    <p>Birthday: Date</p>
+                    <p>}</p>
                 </td>
-                <td>/users/add/:movie</td>
-                <td>Returns a text response confirming the movie was added successfully</td>
+                <td>/users</td>
+                <td>If successful, returns a JSON object that matches the data passed in the body.</td>
             </tr>
             <tr>
-                <td>Removes a movie from a list of favorites</td>
-                <td>DELETE</td>
-                <td>/users/remove/:movie</td>
-                <td>Returns a text response confirming the movie was removed successfully</td>
+                <td>Updates a user's info by username</td>
+                <td>PUT eg. JSON body:
+                    <p>{</p>
+                    <p>Username: String,</p>
+                    <p>Password: String,</p>
+                    <p>Email: String,</p>
+                    <p>Birthday: Date</p>
+                    <p>}</p>
+                </td>
+                <td>/users/:Username</td>
+                <td>If successful, returns a JSON object that matches the data passed in the body.</td>
             </tr>
             <tr>
-                <td>Deletes the user's account</td>
+                <td>Adds a movie to a user's list of favorites</td>
+                <td>POST</td>
+                <td>/users/:Username/movies/:MovieID</td>
+                <td>If successful, returns a user's updated JSON data. eg:
+                    <p>{</p>
+                    <p>Username: String,</p>
+                    <p>Password: String,</p>
+                    <p>Email: String,</p>
+                    <p>Birthday: Date,</p>
+                    <p>FavoriteMovies: [String]</p>
+                    <p>}</p>
+                </td>
+            </tr>
+            <tr>
+                <td>Removes a movie from a user's list of favorites</td>
                 <td>DELETE</td>
-                <td>/users/deleteAccount</td>
-                <td>Returns a text response confirming the user account was successfully deleted</td>
+                <td>/users/:Username/movies/:MovieID</td>
+                <td>If successful, returns a user's updated JSON data. eg:
+                    <p>{</p>
+                    <p>Username: String,</p>
+                    <p>Password: String,</p>
+                    <p>Email: String,</p>
+                    <p>Birthday: Date,</p>
+                    <p>FavoriteMovies: [String]</p>
+                    <p>}</p>
+                </td>
+            </tr>
+            <tr>
+                <td>Deletes a user's account by Username</td>
+                <td>DELETE</td>
+                <td>/users/:Username</td>
+                <td>On success, returns confirmation of deletion. On fail, returns a 400 status code.</td>
             </tr>
         </tbody>
     </table>
