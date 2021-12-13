@@ -7,8 +7,6 @@ const { check, validationResult } = require('express-validator');
 // !deprecated apparently
 // const bodyParser = require('body-parser'); 
 
-const port = 8080;
-
 const Movies = Models.Movie;
 const Users = Models.User;
 
@@ -263,6 +261,7 @@ app.use((err, req, res, next) => {
     next();
 });
 
-app.listen(port, () => {
+const port = process.env.PORT || 8080;
+app.listen(port, '0.0.0.0', () => {
     console.log('Listening on port: ' + port);
 });
