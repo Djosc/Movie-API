@@ -1,8 +1,8 @@
-const bodyParser = require('body-parser');
 const express = require('express'),
     morgan = require('morgan'),
     mongoose = require('mongoose'),
     Models = require('./models.js');
+const { check, validationResult } = require('express-validator');
 
 // !deprecated apparently
 // const bodyParser = require('body-parser'); 
@@ -13,8 +13,6 @@ const Movies = Models.Movie;
 const Users = Models.User;
 
 app = express();
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -113,56 +111,84 @@ app.get('/users/:Username', passport.authenticate('jwt', { session: false }), (r
 });
 
 // Register new user
-app.post('/users', (req, res) => {
-    Users.findOne({ Username: req.body.Username })
-        .then((user) => {
-            if (user) {
-                return res.status(400).send(req.body.Username + ' already exists.');
-            }
-            else {
-                Users.create({
+app.post('/users',
+    // Validation Logic for request
+    [
+        check('Username', 'Username is required').isLength({ min: 5 }),
+        check('Username',
+            'Username contains non-alphanumeric characters - not allowed.').isAlphanumeric(),
+        check('Password', 'Password is required').not().isEmpty(),
+        check('Email', 'Email does not appear to be valid').isEmail()
+    ], (req, res) => {
+        // Check validation object for errors
+        let errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(422).json({ errors: errors.array() });
+        }
+
+        let hashedPassword = Users.hashPassword(req.body.Password);
+        Users.findOne({ Username: req.body.Username }) // Check if username already exists
+            .then((user) => {
+                if (user) {
+                    return res.status(400).send(req.body.Username + ' already exists.');
+                }
+                else {
+                    Users.create({
+                        Username: req.body.Username,
+                        Password: req.body.Password,
+                        Email: req.body.Email,
+                        Birthday: req.body.Birthday
+                    })
+                        .then((user) => { res.status(201).json(user) })
+                        .catch((error) => {
+                            console.error(error);
+                            res.status(500).send('Error ' + error);
+                        });
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+                res.status(500).send('Error ' + error);
+            });
+    });
+
+// Update user info by Username
+app.put('/users/:Username', passport.authenticate('jwt', { session: false }),
+    // Validation Logic for request
+    [
+        check('Username', 'Username is required').isLength({ min: 5 }),
+        check('Username',
+            'Username contains non-alphanumeric characters - not allowed.').isAlphanumeric(),
+        check('Password', 'Password is required').not().isEmpty(),
+        check('Email', 'Email does not appear to be valid').isEmail()
+    ], (req, res) => {
+        // Check validation object for errors
+        let errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(422).json({ erros: errors.array() });
+        }
+
+        Users.findOneAndUpdate({ Username: req.params.Username },
+            {
+                $set:
+                {
                     Username: req.body.Username,
                     Password: req.body.Password,
                     Email: req.body.Email,
                     Birthday: req.body.Birthday
-                })
-                    .then((user) => { res.status(201).json(user) })
-                    .catch((error) => {
-                        console.error(error);
-                        res.status(500).send('Error ' + error);
-                    });
-            }
-        })
-        .catch((error) => {
-            console.error(error);
-            res.status(500).send('Error ' + error);
-        });
-});
-
-// Update user info by Username
-app.put('/users/:Username', passport.authenticate('jwt', { session: false }), (req, res) => {
-    // res.status(200).send('Succesfull PUT request updating user info');
-    Users.findOneAndUpdate({ Username: req.params.Username },
-        {
-            $set:
-            {
-                Username: req.body.Username,
-                Password: req.body.Password,
-                Email: req.body.Email,
-                Birthday: req.body.Birthday
-            }
-        },
-        { new: true }, // make sure updated document is returned
-        (err, updatedUser) => {
-            if (err) {
-                console.error(err);
-                res.status(500).send('Error: ' + err);
-            }
-            else {
-                res.json(updatedUser);
-            }
-        });
-});
+                }
+            },
+            { new: true }, // make sure updated document is returned
+            (err, updatedUser) => {
+                if (err) {
+                    console.error(err);
+                    res.status(500).send('Error: ' + err);
+                }
+                else {
+                    res.json(updatedUser);
+                }
+            });
+    });
 
 // Add movie to the user's favorite list
 app.post('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { session: false }), (req, res) => {
