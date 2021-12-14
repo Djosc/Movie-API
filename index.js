@@ -39,8 +39,9 @@ require('./passport.js');
 //     useUnifiedTopology: true
 // });
 
-mongoose.connect(process.env.CONNECTION_URI, () => {
-    console.log('Connected to Mongoose.');
+mongoose.connect(process.env.CONNECTION_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
 });
 
 app.use(morgan('common'));
