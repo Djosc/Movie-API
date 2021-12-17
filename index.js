@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const cors = require('cors');
-let allowedOrigins = ['http://localhost:8080'];
+let allowedOrigins = ['*'];
 app.use(cors({
     origin: (origin, callback) => {
         if (!origin) return callback(null, true);
@@ -246,7 +246,7 @@ app.delete('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { se
 
 // Delete user's account by Username
 app.delete('/users/:Username', passport.authenticate('jwt', { session: false }), (req, res) => {
-    Users.findOneAndUpdate({ Username: req.params.Username })
+    Users.findOneAndRemove({ Username: req.params.Username })
         .then((user) => {
             if (!user) {
                 res.status(400).send(req.params.Username + ' was not found.');
