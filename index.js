@@ -57,8 +57,8 @@ app.get('/documentation', (req, res) => {
 });
 
 // Gets full list of movies
-// app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
-app.get('/movies', (req, res) => {
+app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
+	// app.get('/movies', (req, res) => {
 	Movies.find()
 		.then((movies) => {
 			res.status(200).json(movies);
@@ -118,20 +118,16 @@ app.get(
 );
 
 // Get all users
-app.get(
-	'/users',
-	passport.authenticate('jwt', { session: false }),
-	(req, res) => {
-		Users.find()
-			.then((users) => {
-				res.status(200).json(users);
-			})
-			.catch((error) => {
-				console.error(error);
-				res.status(500).send('Error: ' + error);
-			});
-	}
-);
+app.get('/users', passport.authenticate('jwt', { session: false }), (req, res) => {
+	Users.find()
+		.then((users) => {
+			res.status(200).json(users);
+		})
+		.catch((error) => {
+			console.error(error);
+			res.status(500).send('Error: ' + error);
+		});
+});
 
 // Get user by Username
 app.get(
@@ -173,9 +169,7 @@ app.post(
 		Users.findOne({ Username: req.body.Username }) // Check if username already exists
 			.then((user) => {
 				if (user) {
-					return res
-						.status(400)
-						.send(req.body.Username + ' already exists.');
+					return res.status(400).send(req.body.Username + ' already exists.');
 				} else {
 					Users.create({
 						Username: req.body.Username,
@@ -298,9 +292,7 @@ app.delete(
 		Users.findOneAndRemove({ Username: req.params.Username })
 			.then((user) => {
 				if (!user) {
-					res.status(400).send(
-						req.params.Username + ' was not found.'
-					);
+					res.status(400).send(req.params.Username + ' was not found.');
 				} else {
 					res.status(200).send(req.params.Username + ' was deleted.');
 				}
